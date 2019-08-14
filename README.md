@@ -25,7 +25,7 @@ The module requires :
 
 ``` bin/magento setup:upgrade ```
 
-### How to manage services
+### How to manage promotions
 
 Go to magento admin panel
 

@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Smile_RetailerPromotion adminhtml menu configuration.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this module to newer
+ * versions in the future.
+ *
+ * @category  Smile
+ * @package   Smile\RetailerPromotion
+ * @author    Fanny DECLERCK <fadec@smile.fr>
+ * @copyright 2019 Smile
+ * @license   Open Software License ("OSL") v. 3.0
+ */
+ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <!-- Manage Retailer Promotions -->
+        <add id="Smile_RetailerPromotion::retailer_promotions"
+             title="Retailer Promotions"
+             translate="title"
+             module="Smile_RetailerPromotion"
+             sortOrder="40"
+             parent="Smile_Retailer::retailers_menu"
+             action="smile_retailer_promotion/promotion"
+             resource="Smile_RetailerPromotion::retailer_promotions"/>
+    </menu>
+</config>

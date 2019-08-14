@@ -1,0 +1,93 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Smile_RetailerPromotion dependency injection configuration.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this module to newer
+ * versions in the future.
+ *
+ * @category  Smile
+ * @package   Smile\RetailerPromotion
+ * @author    Fanny DECLERCK <fadec@smile.fr>
+ * @copyright 2019 Smile
+ * @license   Open Software License ("OSL") v. 3.0
+ */
+ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Smile\RetailerPromotion\Api\Data\PromotionInterface" type="Smile\RetailerPromotion\Model\Promotion" />
+    <preference for="Smile\RetailerPromotion\Api\Data\PromotionSearchResultsInterface" type="Magento\Framework\Api\SearchResults" />
+    <preference for="Smile\RetailerPromotion\Api\PromotionRepositoryInterface" type="Smile\RetailerPromotion\Model\PromotionRepository" />
+
+    <type name="Magento\Framework\Model\Entity\RepositoryFactory">
+        <arguments>
+            <argument name="entities" xsi:type="array">
+                <item name="Smile\RetailerPromotion\Api\Data\PromotionInterface" xsi:type="string">Smile\RetailerPromotion\Api\PromotionRepositoryInterface</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\EntityManager\MetadataPool">
+        <arguments>
+            <argument name="metadata" xsi:type="array">
+                <item name="Smile\RetailerPromotion\Api\Data\PromotionInterface" xsi:type="array">
+                    <item name="entityTableName" xsi:type="string">smile_retailer_promotion</item>
+                    <item name="identifierField" xsi:type="string">promotion_id</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\EntityManager\HydratorPool">
+        <arguments>
+            <argument name="hydrators" xsi:type="array">
+                <item name="Smile\RetailerPromotion\Api\Data\PromotionInterface" xsi:type="string">Magento\Framework\EntityManager\AbstractModelHydrator</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Smile\RetailerPromotion\Model\ResourceModel\Promotion\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">smile_retailer_promotion</argument>
+            <argument name="eventPrefix" xsi:type="string">smile_retailer_promotion_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">smile_retailer_promotion_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Smile\RetailerPromotion\Model\ResourceModel\Promotion</argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="smile_retailer_promotion_listing_data_source" xsi:type="string">
+                    Smile\RetailerPromotion\Model\ResourceModel\Promotion\Grid\Collection
+                </item>
+            </argument>
+        </arguments>
+    </type>
+
+    <!-- VIRTUALTYPES -->
+    <virtualType name="Smile\RetailerPromotion\PromotionImageUpload" type="Magento\Catalog\Model\ImageUploader">
+        <arguments>
+            <argument name="baseTmpPath" xsi:type="string">tmp/retailerpromotion/media</argument>
+            <argument name="basePath" xsi:type="string">retailerpromotion</argument>
+            <argument name="allowedExtensions" xsi:type="array">
+                <item name="jpg" xsi:type="string">jpg</item>
+                <item name="jpeg" xsi:type="string">jpeg</item>
+                <item name="gif" xsi:type="string">gif</item>
+                <item name="png" xsi:type="string">png</item>
+                <item name="pdf" xsi:type="string">pdf</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Smile\RetailerPromotion\Model\PromotionMediaUpload">
+        <arguments>
+            <argument name="imageUploader" xsi:type="object">Smile\RetailerPromotion\PromotionImageUpload</argument>
+        </arguments>
+    </type>
+
+    <type name="Smile\RetailerPromotion\Controller\Adminhtml\Promotion\MediaUpload">
+        <arguments>
+            <argument name="imageUploader" xsi:type="object">Smile\RetailerPromotion\PromotionImageUpload</argument>
+        </arguments>
+    </type>
+</config>

@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Retailer Promotion listing UI Component
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this module to newer
+ * versions in the future.
+ *
+ * @category  Smile
+ * @package   Smile\RetailerPromotion
+ * @author    Fanny DECLERCK <fadec@smile.fr>
+ * @copyright 2019 Smile
+ * @license   Apache License Version 2.0
+ */
+-->
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">smile_retailer_promotion_listing.smile_retailer_promotion_listing_data_source</item>
+        </item>
+    </argument>
+    <settings>
+        <buttons>
+            <button name="add">
+                <url path="*/*/create"/>
+                <class>primary</class>
+                <label translate="true">Add New Retailer Promotion</label>
+            </button>
+        </buttons>
+        <spinner>smile_retailer_promotion_columns</spinner>
+        <deps>
+            <dep>smile_retailer_promotion_listing.smile_retailer_promotion_listing_data_source</dep>
+        </deps>
+    </settings>
+    <dataSource name="smile_retailer_promotion_listing_data_source" component="Magento_Ui/js/grid/provider">
+        <settings>
+            <storageConfig>
+                <param name="indexField" xsi:type="string">promotion_id</param>
+            </storageConfig>
+            <updateUrl path="mui/index/render"/>
+        </settings>
+        <aclResource>Smile_RetailerPromotion::retailer_promotions</aclResource>
+        <dataProvider class="Smile\RetailerPromotion\Ui\Component\Listing\DataProvider" name="smile_retailer_promotion_listing_data_source">
+            <settings>
+                <requestFieldName>id</requestFieldName>
+                <primaryFieldName>promotion_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <listingToolbar name="listing_top">
+        <settings>
+            <sticky>true</sticky>
+        </settings>
+        <bookmark name="bookmarks"/>
+        <columnsControls name="columns_controls"/>
+        <filters name="listing_filters">
+            <settings>
+                <templates>
+                    <filters>
+                        <select>
+                            <param name="template" xsi:type="string">ui/grid/filters/elements/ui-select</param>
+                            <param name="component" xsi:type="string">Magento_Ui/js/form/element/ui-select</param>
+                        </select>
+                    </filters>
+                </templates>
+            </settings>
+        </filters>
+        <massaction name="listing_massaction">
+            <action name="delete">
+                <settings>
+                    <confirm>
+                        <message translate="true">Are you sure you want to delete selected promotions?</message>
+                        <title translate="true">Delete promotions</title>
+                    </confirm>
+                    <url path="smile_retailer_promotion/promotion/massDelete"/>
+                    <type>delete</type>
+                    <label translate="true">Delete</label>
+                </settings>
+            </action>
+            <action name="enable">
+                <settings>
+                    <url path="smile_retailer_promotion/promotion/massEnable"/>
+                    <type>enable</type>
+                    <label translate="true">Enable</label>
+                </settings>
+            </action>
+            <action name="disable">
+                <settings>
+                    <url path="smile_retailer_promotion/promotion/massDisable"/>
+                    <type>disable</type>
+                    <label translate="true">Disable</label>
+                </settings>
+            </action>
+            <action name="update">
+                <settings>
+                    <url path="smile_retailer_promotion/promotion/massEdit"/>
+                    <type>update</type>
+                    <label translate="true">Update</label>
+                </settings>
+            </action>
+        </massaction>
+        <paging name="listing_paging"/>
+    </listingToolbar>
+    <columns name="smile_retailer_promotion_columns">
+        <settings>
+            <editorConfig>
+                <param name="indexField" xsi:type="string">promotion_id</param>
+                <param name="enabled" xsi:type="boolean">true</param>
+                <param name="selectProvider" xsi:type="string">smile_retailer_promotion_listing.smile_retailer_promotion_listing.smile_retailer_promotion_columns.ids</param>
+            </editorConfig>
+            <childDefaults>
+                <param name="optinAction" xsi:type="array">
+                    <item name="provider" xsi:type="string">
+                        smile_retailer_promotion_listing.smile_retailer_promotion_listing.smile_retailer_promotion_columns_editor
+                    </item>
+                    <item name="target" xsi:type="string">startEdit</item>
+                    <item name="params" xsi:type="array">
+                        <item name="0" xsi:type="string">${ $.$data.rowIndex }</item>
+                        <item name="1" xsi:type="boolean">true</item>
+                    </item>
+                </param>
+            </childDefaults>
+        </settings>
+        <selectionsColumn name="ids">
+            <settings>
+                <indexField>promotion_id</indexField>
+            </settings>
+        </selectionsColumn>
+        <column name="promotion_id" sortOrder="10">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">ID</label>
+                <sorting>asc</sorting>
+            </settings>
+        </column>
+        <column name="title" sortOrder="20">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Title</label>
+            </settings>
+        </column>
+        <column name="is_active" sortOrder="30">
+            <settings>
+                <filter>select</filter>
+                <dataType>select</dataType>
+                <label translate="true">Is Active</label>
+            </settings>
+        </column>
+        <column name="is_active" component="Magento_Ui/js/grid/columns/select" sortOrder="30">
+            <settings>
+                <options class="Smile\RetailerPromotion\Model\Status\Source\IsActive"/>
+                <filter>select</filter>
+                <editor>
+                    <editorType>select</editorType>
+                </editor>
+                <dataType>select</dataType>
+                <label translate="true">Is Active</label>
+            </settings>
+        </column>
+        <column name="status" sortOrder="40">
+            <settings>
+                <filter>select</filter>
+                <dataType>select</dataType>
+                <label translate="true">Status</label>
+            </settings>
+        </column>
+        <column name="status" component="Magento_Ui/js/grid/columns/select" sortOrder="30">
+            <settings>
+                <options class="Smile\RetailerPromotion\Model\Status\Source\Status"/>
+                <filter>select</filter>
+                <editor>
+                    <editorType>select</editorType>
+                </editor>
+                <dataType>select</dataType>
+                <label translate="true">Status</label>
+            </settings>
+        </column>
+        <column name="retailer_id" sortOrder="50" class="Smile\RetailerPromotion\Ui\Component\Listing\Column\RendererRetailers">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Retailer</label>
+            </settings>
+        </column>
+        <actionsColumn name="actions" class="Smile\RetailerPromotion\Ui\Component\Listing\Column\BlockActions">
+            <settings>
+                <indexField>promotion_id</indexField>
+            </settings>
+        </actionsColumn>
+    </columns>
+</listing>
