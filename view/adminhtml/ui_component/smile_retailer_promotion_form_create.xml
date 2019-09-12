@@ -123,6 +123,74 @@
                 </checkbox>
             </formElements>
         </field>
+        <field name="status" formElement="checkbox">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Smile\RetailerPromotion\Model\Status\Source\Status</item>
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Status</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="source" xsi:type="string">promotion</item>
+                    <item name="dataScope" xsi:type="string">status</item>
+                    <item name="default" xsi:type="string">0</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+            <settings>
+                <switcherConfig>
+                    <rules>
+                        <rule name="0">
+                            <value>0</value>
+                            <actions>
+                                <action name="0">
+                                    <target>smile_retailer_promotion_form_create.smile_retailer_promotion_form_create_data_source.general.retailer_id</target>
+                                    <callback>hide</callback>
+                                </action>
+                            </actions>
+                        </rule>
+                        <rule name="1">
+                            <value>1</value>
+                            <actions>
+                                <action name="0">
+                                    <target>smile_retailer_promotion_form_create.smile_retailer_promotion_form_create_data_source.general.retailer_id</target>
+                                    <callback>show</callback>
+                                </action>
+                            </actions>
+                        </rule>
+                    </rules>
+                </switcherConfig>
+            </settings>
+        </field>
+        <field name="retailer_id">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Smile\Retailer\Ui\Component\Form\Retailer\Options</item>
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Retailers</item>
+                    <item name="componentType" xsi:type="string">field</item>
+                    <item name="formElement" xsi:type="string">multiselect</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/form/element/ui-select</item>
+                    <item name="elementTmpl" xsi:type="string">ui/grid/filters/elements/ui-select</item>
+                    <item name="dataScope" xsi:type="string">retailer_id</item>
+                    <item name="filterOptions" xsi:type="boolean">true</item>
+                    <item name="showCheckbox" xsi:type="boolean">false</item>
+                    <item name="disableLabel" xsi:type="boolean">true</item>
+                    <item name="multiple" xsi:type="boolean">true</item>
+                    <item name="levelsVisibility" xsi:type="number">1</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">false</item>
+                    </item>
+                    <item name="imports" xsi:type="array">
+                        <item name="visible" xsi:type="string">true</item>
+                    </item>
+                    <item name="listens" xsi:type="array">
+                        <item name="${ $.namespace }.${ $.namespace }:responseData" xsi:type="string">setParsed</item>
+                    </item>
+                    <!--<item name="displayOnlyForStatus" xsi:type="string">1</item>-->
+                </item>
+            </argument>
+        </field>
         <field name="media_path" formElement="imageUploader">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
@@ -171,33 +239,6 @@
                     <rule name="required-entry" xsi:type="boolean">false</rule>
                 </validation>
             </settings>
-        </field>
-        <field name="retailer_id">
-            <argument name="data" xsi:type="array">
-                <item name="options" xsi:type="object">Smile\Retailer\Ui\Component\Form\Retailer\Options</item>
-                <item name="config" xsi:type="array">
-                    <item name="label" xsi:type="string" translate="true">Retailers</item>
-                    <item name="componentType" xsi:type="string">field</item>
-                    <item name="formElement" xsi:type="string">multiselect</item>
-                    <item name="component" xsi:type="string">Magento_Ui/js/form/element/ui-select</item>
-                    <item name="elementTmpl" xsi:type="string">ui/grid/filters/elements/ui-select</item>
-                    <item name="dataScope" xsi:type="string">retailer_id</item>
-                    <item name="filterOptions" xsi:type="boolean">true</item>
-                    <item name="showCheckbox" xsi:type="boolean">false</item>
-                    <item name="disableLabel" xsi:type="boolean">true</item>
-                    <item name="multiple" xsi:type="boolean">true</item>
-                    <item name="levelsVisibility" xsi:type="number">1</item>
-                    <item name="validation" xsi:type="array">
-                        <item name="required-entry" xsi:type="boolean">false</item>
-                    </item>
-                    <item name="imports" xsi:type="array">
-                        <item name="visible" xsi:type="string">true</item>
-                    </item>
-                    <item name="listens" xsi:type="array">
-                        <item name="${ $.namespace }.${ $.namespace }:responseData" xsi:type="string">setParsed</item>
-                    </item>
-                </item>
-            </argument>
         </field>
         <field name="created_at" formElement="date">
             <argument name="data" xsi:type="array">

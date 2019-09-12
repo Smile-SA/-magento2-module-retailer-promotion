@@ -40,12 +40,15 @@ class Save extends AbstractPromotion
 
         if ($data) {
             $identifier = $this->getRequest()->getParam('promotion_id');
-            $retailerIds = $this->getRequest()->getParam('retailer_id', false);
+            $retailerIds = $this->getRequest()->getParam('retailer_id', ['0']);
 
             $media = false;
-            if (!empty($data[PromotionInterface::MEDIA_PATH])) {
+            if (!empty($data[PromotionInterface::MEDIA_PATH])
+                && isset($data[PromotionInterface::MEDIA_PATH][0]['name'])
+            ) {
                 $media = $data[PromotionInterface::MEDIA_PATH][0]['name'];
             }
+            unset($data[PromotionInterface::MEDIA_PATH]);
 
             /** @var PromotionInterface $model*/
             $model = $this->promotionFactory->create();
@@ -60,10 +63,10 @@ class Save extends AbstractPromotion
                 }
             }
 
+
             foreach ($retailerIds as $retailerId) {
                 $model->setData($data);
                 $model->setRetailerId($retailerId);
-
                 if ($media) {
                     $model->setMediaPath($retailerId. '_' .$media);
                 }

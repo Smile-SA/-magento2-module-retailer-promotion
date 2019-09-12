@@ -37,6 +37,15 @@ class Edit extends AbstractPromotion
         if ($isExistingPromotion) {
             try {
                 $promotion = $this->promotionRepository->get($promotionId);
+
+                if($promotion->getStatus() == \Smile\RetailerPromotion\Model\Status\Source\Status::STATUS_CENTRAL) {
+                    $this->messageManager->addErrorMessage(__("You can't edit this central promotion."));
+                    $resultRedirect = $this->resultRedirectFactory->create();
+                    $resultRedirect->setPath('*/*/index');
+
+                    return $resultRedirect;
+                }
+
                 $this->coreRegistry->register('current_promotion', $promotion);
 
                 $resultPage = $this->createPage();
