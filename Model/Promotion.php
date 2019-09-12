@@ -156,7 +156,7 @@ class Promotion extends AbstractModel implements PromotionInterface, IdentityInt
     /**
      * {@inheritDoc}
      */
-    public function SetTitle($title)
+    public function setTitle($title)
     {
         return $this->setData(self::TITLE, $title);
     }
@@ -164,7 +164,7 @@ class Promotion extends AbstractModel implements PromotionInterface, IdentityInt
     /**
      * {@inheritDoc}
      */
-    public function SetDescription($description)
+    public function setDescription($description)
     {
         return $this->setData(self::DESCRIPTION, $description);
     }
@@ -172,7 +172,7 @@ class Promotion extends AbstractModel implements PromotionInterface, IdentityInt
     /**
      * {@inheritDoc}
      */
-    public function SetStatus($status)
+    public function setStatus($status)
     {
         return $this->setData(self::STATUS, $status);
     }
@@ -180,7 +180,15 @@ class Promotion extends AbstractModel implements PromotionInterface, IdentityInt
     /**
      * {@inheritDoc}
      */
-    public function SetMediaPath($path)
+    public function setIsActive($isActive)
+    {
+        return $this->setData(self::IS_ACTIVE, $isActive);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setMediaPath($path)
     {
         return $this->setData(self::MEDIA_PATH, $path);
     }
@@ -188,7 +196,7 @@ class Promotion extends AbstractModel implements PromotionInterface, IdentityInt
     /**
      * {@inheritDoc}
      */
-    public function SetPdf($path)
+    public function setPdf($path)
     {
         return $this->setData(self::PDF, $path);
     }
@@ -196,7 +204,7 @@ class Promotion extends AbstractModel implements PromotionInterface, IdentityInt
     /**
      * {@inheritDoc}
      */
-    public function SetLink($path)
+    public function setLink($path)
     {
         return $this->setData(self::LINK, $path);
     }
@@ -204,7 +212,7 @@ class Promotion extends AbstractModel implements PromotionInterface, IdentityInt
     /**
      * {@inheritDoc}
      */
-    public function SetRetailerId($retailerId)
+    public function setRetailerId($retailerId)
     {
         return $this->setData(self::RETAILER_ID, $retailerId);
     }
@@ -212,7 +220,7 @@ class Promotion extends AbstractModel implements PromotionInterface, IdentityInt
     /**
      * {@inheritDoc}
      */
-    public function SetCreatedAt($createdAt)
+    public function setCreatedAt($createdAt)
     {
         return $this->setData(self::CREATED_AT, $createdAt);
     }
@@ -220,7 +228,7 @@ class Promotion extends AbstractModel implements PromotionInterface, IdentityInt
     /**
      * {@inheritDoc}
      */
-    public function SetEndAt($endAt)
+    public function setEndAt($endAt)
     {
         return $this->setData(self::END_AT, $endAt);
     }

@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * RetailerPromotion crontab.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Smile Elastic Suite to newer
+ * versions in the future.
+ *
+ *
+ * @category  Smile
+ * @package   Smile\RetailerPromotion
+ * @author    Fanny DECLERCK <fadec@smile.fr>
+ * @copyright 2019 Smile
+ * @license   Open Software License ("OSL") v. 3.0
+ */
+ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+    <group id="default">
+        <job name="retailerpromotion_cronjob" instance="Smile\RetailerPromotion\Cron\UpdateStatus" method="execute">
+            <schedule>01 00 * * *</schedule>
+        </job>
+    </group>
+</config>

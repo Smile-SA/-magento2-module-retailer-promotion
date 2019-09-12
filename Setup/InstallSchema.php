@@ -111,7 +111,7 @@ class InstallSchema implements InstallSchemaInterface
                 PromotionInterface::RETAILER_ID,
                 \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
                 null,
-                ['unsigned' => true, 'nullable' => false],
+                ['unsigned' => true, 'nullable' => true],
                 'Retailer ID'
             )
             ->addColumn(
@@ -127,17 +127,6 @@ class InstallSchema implements InstallSchemaInterface
                 null,
                 [],
                 'End at'
-            )
-            ->addForeignKey(
-                $setup->getFkName(
-                    PromotionInterface::TABLE_NAME,
-                    PromotionInterface::RETAILER_ID,
-                    'smile_seller_entity',
-                    'entity_id'),
-                PromotionInterface::RETAILER_ID,
-                $setup->getTable('smile_seller_entity'),
-                'entity_id',
-                \Magento\Framework\DB\Ddl\Table::ACTION_CASCADE
             );
 
         $setup->getConnection()->createTable($table);

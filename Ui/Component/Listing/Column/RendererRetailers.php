@@ -63,8 +63,13 @@ class RendererRetailers extends Column
         if (isset($dataSource['data']['items'])) {
             foreach ($dataSource['data']['items'] as & $item) {
                 if (isset($item[$this->getData('name')])) {
-                    $retailerName = $this->retailerRepository->get($item[$this->getData('name')]);
-                    $item[$this->getData('name')] = $retailerName->getName();
+                    $retailerId = $item[$this->getData('name')];
+                    $item[$this->getData('name')] = '';
+
+                    if ($retailerId != '0') {
+                        $retailerName = $this->retailerRepository->get($retailerId);
+                        $item[$this->getData('name')] = $retailerName->getName();
+                    }
                 }
             }
         }
