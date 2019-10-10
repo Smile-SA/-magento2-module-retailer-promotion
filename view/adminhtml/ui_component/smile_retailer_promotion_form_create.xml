@@ -123,45 +123,54 @@
                 </checkbox>
             </formElements>
         </field>
-        <field name="status" formElement="checkbox">
+        <field name="status" formElement="select" component="Smile_RetailerPromotion/js/form/element/retailer-status">
             <argument name="data" xsi:type="array">
                 <item name="options" xsi:type="object">Smile\RetailerPromotion\Model\Status\Source\Status</item>
                 <item name="config" xsi:type="array">
-                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="dataType" xsi:type="string">number</item>
                     <item name="label" xsi:type="string" translate="true">Status</item>
-                    <item name="formElement" xsi:type="string">select</item>
                     <item name="source" xsi:type="string">promotion</item>
                     <item name="dataScope" xsi:type="string">status</item>
-                    <item name="default" xsi:type="string">0</item>
+                    <item name="default" xsi:type="string">1</item>
                     <item name="validation" xsi:type="array">
                         <item name="required-entry" xsi:type="boolean">true</item>
                     </item>
+                    <item name="additionalClasses" xsi:type="string">status</item>
                 </item>
             </argument>
-            <settings>
-                <switcherConfig>
-                    <rules>
-                        <rule name="0">
-                            <value>0</value>
-                            <actions>
-                                <action name="0">
-                                    <target>smile_retailer_promotion_form_create.smile_retailer_promotion_form_create_data_source.general.retailer_id</target>
-                                    <callback>hide</callback>
-                                </action>
-                            </actions>
-                        </rule>
-                        <rule name="1">
-                            <value>1</value>
-                            <actions>
-                                <action name="0">
-                                    <target>smile_retailer_promotion_form_create.smile_retailer_promotion_form_create_data_source.general.retailer_id</target>
-                                    <callback>show</callback>
-                                </action>
-                            </actions>
-                        </rule>
-                    </rules>
-                </switcherConfig>
-            </settings>
+            <!--<settings>-->
+                <!--<switcherConfig>-->
+                    <!--<rules>-->
+                        <!--<rule name="0">-->
+                            <!--<value>1</value>-->
+                            <!--<actions>-->
+                                <!--<action name="0">-->
+                                    <!--<target>smile_retailer_promotion_form_create.smile_retailer_promotion_form_create.general.retailer_id</target>-->
+                                    <!--<callback>hide</callback>-->
+                                <!--</action>-->
+                            <!--</actions>-->
+                        <!--</rule>-->
+                        <!--<rule name="1">-->
+                            <!--<value>2</value>-->
+                            <!--<actions>-->
+                                <!--<action name="0">-->
+                                    <!--<target>smile_retailer_promotion_form_create.smile_retailer_promotion_form_create.general.retailer_id</target>-->
+                                    <!--<callback>show</callback>-->
+                                <!--</action>-->
+                            <!--</actions>-->
+                        <!--</rule>-->
+                        <!--<rule name="2">-->
+                            <!--<value>3</value>-->
+                            <!--<actions>-->
+                                <!--<action name="0">-->
+                                    <!--<target>smile_retailer_promotion_form_create.smile_retailer_promotion_form_create_data_source.general.retailer_id</target>-->
+                                    <!--<callback>hide</callback>-->
+                                <!--</action>-->
+                            <!--</actions>-->
+                        <!--</rule>-->
+                    <!--</rules>-->
+                <!--</switcherConfig>-->
+            <!--</settings>-->
         </field>
         <field name="retailer_id">
             <argument name="data" xsi:type="array">
@@ -187,7 +196,7 @@
                     <item name="listens" xsi:type="array">
                         <item name="${ $.namespace }.${ $.namespace }:responseData" xsi:type="string">setParsed</item>
                     </item>
-                    <!--<item name="displayOnlyForStatus" xsi:type="string">1</item>-->
+                    <item name="additionalClasses" xsi:type="string">retailer-list-id</item>
                 </item>
             </argument>
         </field>

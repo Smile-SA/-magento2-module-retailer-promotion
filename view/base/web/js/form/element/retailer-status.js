@@ -16,39 +16,27 @@ define([
          * Hide fields on status tab
          */
         onUpdate: function () {
-
-            /* eslint-disable eqeqeq */
-            if (this.value() != this.displayOnlyForRetailerStatus) {
-                uiRegistry.get('').checked(false);
-            }
-
             this.enableDisableFields();
         },
 
         /**
-         * Enable/disable fields on Coupons tab
+         * Enable/disable fields
          */
         enableDisableFields: function () {
-            var selector,
-                isUseAutoGenerationChecked,
-                couponType,
-                disableAuto;
+            var promoteStatus,
+                retailerList;
 
-            selector = '[id=sales-rule-form-tab-coupons] input, [id=sales-rule-form-tab-coupons] select, ' +
-                '[id=sales-rule-form-tab-coupons] button';
-            isUseAutoGenerationChecked = uiRegistry
-                .get('sales_rule_form.sales_rule_form.rule_information.use_auto_generation')
-                .checked();
-            couponType = uiRegistry
-                .get('sales_rule_form.sales_rule_form.rule_information.coupon_type')
+            // retailerList = uiRegistry
+            //     .get('smile_retailer_promotion_form_create.smile_retailer_promotion_form_create.general.retailer_id');
+            retailerList = document.getElementsByClassName('retailer-list-id')[0];
+            retailerList.style.display = 'block';
+
+            promoteStatus = uiRegistry
+                .get('smile_retailer_promotion_form_create.smile_retailer_promotion_form_create.general.status')
                 .value();
-            disableAuto = couponType === 3 || isUseAutoGenerationChecked;
-            _.each(
-                document.querySelectorAll(selector),
-                function (element) {
-                    element.disabled = !disableAuto;
-                }
-            );
+            if (promoteStatus == 2) {
+                retailerList.style.display = 'none';
+            }
         }
     });
 });
