@@ -1,0 +1,293 @@
+// /**
+//  * DISCLAIMER
+//  *
+//  * Do not edit or add to this file if you wish to upgrade this module to new
+//  * versions in the future.
+//  *
+//  *
+//  * @category  Smile
+//  * @package   Smile\RetailerPromotion
+//  * @author    Ihor KVASNYTSKYI <ihor.kvasnytskyi@smile-ukraine.com>
+//  * @copyright 2019 Smile
+//  * @license   Open Software License ("OSL") v. 3.0
+//  */
+
+
+//
+//  Promotion View
+//  _____________________________________________
+
+@import 'slick/_slick';
+
+
+// All
+
+.store-locator-promotions {
+    &-container {
+        float: left;
+        width: 100%;
+        position: relative;
+        background-color: #F8F8F8;
+        &:after {
+            display: block;
+            width: 100%;
+            content: '';
+            background-color: #F8F8F8;
+            height: 100%;
+            width: 100%;
+            right: 100%;
+            position: absolute;
+            top: 0;
+        }
+        &:before {
+            display: block;
+            width: 100%;
+            content: '';
+            background-color: #F8F8F8;
+            height: 100%;
+            width: 100%;
+            left: 100%;
+            position: absolute;
+            top: 0;
+        }
+
+        h4 {
+            color: #333435;
+            font-family: "Open Sans";
+            font-weight: 600;
+            text-align: center;
+            margin-button: 60px;
+        }
+    }
+
+    &-wrapper {
+        text-align: center;
+        max-width: 1020px;
+        width: 100%;
+        margin: 0 auto;
+        padding-top: 50px;
+        padding-bottom: 70px;
+    }
+
+    &-item {
+        display: inline-block;
+        margin-right: 2.55%;
+        width: 31%;
+        max-width: 320px;
+        background: white;
+        height: 368px;
+        vertical-align: text-top;
+        border: 1px solid #E2E2E2;
+        box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.06);
+        box-sizing: border-box;
+
+        &:last-of-type {
+            margin-right: 0;
+        }
+        .image-wrapper {
+            width: 100%;
+            height: 123px;
+            position: relative;
+
+            img {
+                max-height: 123px;
+                display: block;
+                margin: 0 auto;
+                position: absolute;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                top: 0;
+            }
+        }
+
+        h4 {
+            color: #EE5C1D;
+            font-family: "Open Sans";
+            font-weight: 600;
+            margin: 10px 0 20px 0;
+        }
+
+        .description-container {
+            color: #333435;
+            font-family: "Open Sans";
+            text-align: center;
+            max-height: 108px;
+        }
+    }
+}
+
+// Desktop
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+    .store-locator-promotions {
+        &-container {
+            h4 {
+                font-size: 36px;
+                line-height: 49px;
+                margin-button: 30px;
+            }
+        }
+
+        &-item {
+            padding: 30px;
+            &:last-of-type {
+                margin-right: 0;
+            }
+            .image-wrapper {
+                width: 100%;
+                height: 123px;
+                position: relative;
+
+                img {
+                    max-height: 123px;
+                    display: block;
+                    margin: 0 auto;
+                    position: absolute;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    top: 0;
+                }
+            }
+
+            h4 {
+                font-size: 28px;
+                font-weight: 600;
+                line-height: 30px;
+                margin: 10px 0 20px 0;
+            }
+
+            .description-container {
+                font-size: 15px;
+                line-height: 27px;
+            }
+        }
+    }
+}
+
+// Tablet
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .store-locator-promotions {
+        &-container {
+            h4 {
+                font-size: 24px;
+                font-weight: 600;
+                line-height: 33px;
+                margin-button: 30px;
+            }
+        }
+
+        &-item {
+            width: 31%;
+            max-width: 320px;
+            height: 368px;
+            padding: 30px 10px 20px 10px;
+            &:last-of-type {
+                margin-right: 0;
+            }
+            .image-wrapper {
+                width: 100%;
+                height: 123px;
+                position: relative;
+
+                img {
+                    max-height: 123px;
+                    display: block;
+                    margin: 0 auto;
+                    position: absolute;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    top: 0;
+                }
+            }
+
+            h4 {
+                font-size: 24px;
+                font-weight: 600;
+                line-height: 33px;
+                margin: 10px 0 20px 0;
+            }
+
+            .description-container {
+                font-size: 13px;
+                line-height: 22px;
+            }
+        }
+    }
+}
+
+// Mobile
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+    .store-locator-promotions {
+        &-container {
+            float: left;
+            width: 100%;
+            position: relative;
+            background-color: #F8F8F8;
+
+            h4 {
+                font-size: 24px;
+                line-height: 33px;
+                margin-buttom: 30px;
+            }
+        }
+
+        &-wrapper {
+            text-align: left;
+            max-width: 1020px;
+            width: 90%;
+            margin: 0 auto;
+            padding-top: 0;
+            padding-bottom: 70px;
+        }
+
+        &-item {
+            display: block;
+            float: left;
+            margin-right: 20px;
+            width: 29%;
+            max-width: none;
+            background: white;
+            height: 368px;
+            padding: 30px 10px 30px 10px;
+            box-sizing: border-box;
+
+            &:last-of-type {
+                margin-right: 0;
+            }
+            .image-wrapper {
+                width: 100%;
+                height: 123px;
+                position: relative;
+
+                img {
+                    max-height: 95px;
+                    display: block;
+                    margin: 0 auto;
+                    position: absolute;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    top: 0;
+                }
+            }
+
+            h4 {
+                font-size: 24px;
+                font-weight: 600;
+                line-height: 30px;
+                margin: 10px 0 20px 0;
+            }
+
+            .description-container {
+                font-size: 12px;
+                line-height: 21px;
+                max-height: 108px;
+            }
+        }
+    }
+}
+
