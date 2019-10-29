@@ -18,13 +18,22 @@ use Smile\RetailerPromotion\Api\Data\PromotionInterface;
 
 class StoreLocatorBlockSearchPlugin
 {
+    /**
+     * @var PromotionRepositoryInterface
+     */
     private $promotionRepository;
     /**
-     * Constructor.
-     * @param array                                                          $data                      Additional data.
+     * @var SearchCriteriaBuilder
+     */
+    private $searchCriteriaBuilder;
+
+    /**
+     * StoreLocatorBlockSearchPlugin constructor.
+     * @param PromotionRepositoryInterface $promotionRepository
+     * @param SearchCriteriaBuilder $searchCriteriaBuilder
+     * @param array $data
      */
     public function __construct(
-        \Smile\StoreLocator\Helper\Data $storeLocatorHelper,
         PromotionRepositoryInterface $promotionRepository,
         SearchCriteriaBuilder $searchCriteriaBuilder,
         $data = []
@@ -33,16 +42,13 @@ class StoreLocatorBlockSearchPlugin
         $this->searchCriteriaBuilder = $searchCriteriaBuilder;
     }
 
-
     /**
      * Add promotion in markers.
      *
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter).
-     *
-     * @param \Smile\Storelocator\Block\Search $block  The block search
-     * @param array                            $result List of markers
-     *
-     * @return array
+     * @param \Smile\StoreLocator\Block\Search  $block  The block search
+     * @param $result                           $result List of markers
+     * @return  array
+     * @throws \Magento\Framework\Exception\LocalizedException
      */
     public function afterGetMarkers(\Smile\StoreLocator\Block\Search $block, $result)
     {
@@ -67,6 +73,12 @@ class StoreLocatorBlockSearchPlugin
         return $result;
     }
 
+    /**
+     * Get the list of promotions.
+     * @param int $retailerId
+     * @return PromotionInterface[]
+     * @throws \Magento\Framework\Exception\LocalizedException
+    */
     public function getPromoListByRetailerId($retailerId)
     {
         $now = new \DateTime();
