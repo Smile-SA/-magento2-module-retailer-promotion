@@ -35,8 +35,7 @@ class StoreLocatorBlockSearchPlugin
      */
     public function __construct(
         PromotionRepositoryInterface $promotionRepository,
-        SearchCriteriaBuilder $searchCriteriaBuilder,
-        $data = []
+        SearchCriteriaBuilder $searchCriteriaBuilder
     ) {
         $this->promotionRepository = $promotionRepository;
         $this->searchCriteriaBuilder = $searchCriteriaBuilder;
