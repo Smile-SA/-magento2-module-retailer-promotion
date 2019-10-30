@@ -24,9 +24,18 @@
                     <item name="components" xsi:type="array">
                         <item name="store-locator-search" xsi:type="array">
                             <item name="children" xsi:type="array">
-                                <item name="promotion" xsi:type="array">
-                                    <item name="component" xsi:type="string">uiComponent</item>
-                                    <item name="storePromotionalTemplate" xsi:type="string">Smile_RetailerPromotion/promotion-item</item>
+                                <item name="banner-container" xsi:type="array">
+                                    <item name="children" xsi:type="array">
+                                        <item name="promotion-parent" xsi:type="array">
+                                            <item name="component" xsi:type="string">uiComponent</item>
+                                            <item name="displayArea" xsi:type="string">banner-container</item>
+                                            <item name="sortOrder" xsi:type="string">12</item>
+                                            <item name="promotionItemTemplate" xsi:type="string">Smile_RetailerPromotion/promotion-item</item>
+                                            <item name="config" xsi:type="array">
+                                                <item name="template" xsi:type="string">Smile_RetailerPromotion/promotion-wrapper</item>
+                                            </item>
+                                        </item>
+                                    </item>
                                 </item>
                             </item>
                         </item>

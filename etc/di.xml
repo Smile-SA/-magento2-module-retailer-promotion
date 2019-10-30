@@ -11,6 +11,7 @@
  * @category  Smile
  * @package   Smile\RetailerPromotion
  * @author    Fanny DECLERCK <fadec@smile.fr>
+ * @author    Ihor KVASNYTSKYI <ihor.kvasnytskyi@smile-ukraine.com>
  * @copyright 2019 Smile
  * @license   Open Software License ("OSL") v. 3.0
  */
@@ -89,5 +90,9 @@
         <arguments>
             <argument name="imageUploader" xsi:type="object">Smile\RetailerPromotion\PromotionImageUpload</argument>
         </arguments>
+    </type>
+
+    <type name="Smile\StoreLocator\Block\Search">
+        <plugin disabled="false" name="addRetailerPromotionData" type="Smile\RetailerPromotion\Plugin\StoreLocatorBlockSearchPlugin" sortOrder="10"/>
     </type>
 </config>
