@@ -6,10 +6,9 @@
  *
  *
  * @category  Smile
- * @package   Smile\Map
- * @author    Romain Ruaud <romain.ruaud@smile.fr>
- * @author    Guillaume Vrac <guillaume.vrac@smile.fr>
- * @copyright 2016 Smile
+ * @package   Smile\RetailerPromotion
+ * @author    Ihor KVASNYTSKYI <ihor.kvasnytskyi@smile-ukraine.com>
+ * @copyright 2019 Smile
  * @license   Open Software License ("OSL") v. 3.0
  */
 
