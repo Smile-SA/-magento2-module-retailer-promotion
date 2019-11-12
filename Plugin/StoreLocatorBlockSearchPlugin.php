@@ -77,15 +77,15 @@ class StoreLocatorBlockSearchPlugin
      * @param int $retailerId
      * @return PromotionInterface[]
      * @throws \Magento\Framework\Exception\LocalizedException
-    */
+     */
     public function getPromoListByRetailerId($retailerId)
     {
         $now = new \DateTime();
         $currDateFormat = $now->format('Y-m-d H:i:s');
 
         $this->searchCriteriaBuilder
-            ->addFilter(PromotionInterface::RETAILER_ID, $retailerId)
-            ->addFilter(PromotionInterface::STATUS, 2)
+            ->addFilter(PromotionInterface::RETAILER_ID, [0, $retailerId], 'in')
+            ->addFilter(PromotionInterface::STATUS, [1, 2], 'in')
             ->addFilter(PromotionInterface::IS_ACTIVE, true)
             ->addFilter(PromotionInterface::CREATED_AT, $currDateFormat, 'lteq')
             ->addFilter(PromotionInterface::END_AT, $currDateFormat, 'gteq');
