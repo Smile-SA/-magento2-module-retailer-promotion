@@ -36,6 +36,7 @@ class StoreLocatorBlockSearchPlugin
     public function __construct(
         PromotionRepositoryInterface $promotionRepository,
         SearchCriteriaBuilder $searchCriteriaBuilder
+
     ) {
         $this->promotionRepository = $promotionRepository;
         $this->searchCriteriaBuilder = $searchCriteriaBuilder;
@@ -58,12 +59,18 @@ class StoreLocatorBlockSearchPlugin
                 $imageUrlPromotion = $block->getImageUrl().'/retailerpromotion/';
 
                 foreach ($promoList as $promo) {
+
                     $image = $promo->getMediaPath() ? $imageUrlPromotion.$promo->getMediaPath() : false;
+                    $pdfFile = $promo->getPdf() ? $promo->getPdf() : false;
+                    $promotionLink = $promo->getLink() ? $promo->getLink() : false;
+
                     $result[$key]['promotion'][] =
                         [
                             'media' => $image,
                             'title' => $promo->getTitle(),
                             'description' => $promo->getDescription(),
+                            'pdfFile' => $pdfFile,
+                            'link' => $promotionLink
                         ];
                 }
             }
@@ -77,7 +84,7 @@ class StoreLocatorBlockSearchPlugin
      * @param int $retailerId
      * @return PromotionInterface[]
      * @throws \Magento\Framework\Exception\LocalizedException
-     */
+    */
     public function getPromoListByRetailerId($retailerId)
     {
         $now = new \DateTime();

@@ -1,3 +1,4 @@
+
 <div class="image-wrapper">
     <img  data-bind="attr:{ src : media}, visible: media != false"></img>
 </div>
@@ -5,3 +6,13 @@
 <h4 data-bind="text: title"></h4>
 
 <div  class="description-container" data-bind="html: description"></div>
+
+<!-- ko if: link != false -->
+    <a class="promotion-link" data-bind="attr: { href: link}"></a>
+<!-- /ko -->
+<!-- ko if: pdfFile != false -->
+<div class="promotion-pdf">
+    <span class="promotion-pdf-text" data-bind="text:  $t('PDF file')"></span>
+    <a data-bind="attr: { href:  pdfFile}"></a>
+</div>
+<!-- /ko -->
