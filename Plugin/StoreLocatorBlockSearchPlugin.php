@@ -15,6 +15,8 @@ namespace Smile\RetailerPromotion\Plugin;
 use Smile\RetailerPromotion\Api\PromotionRepositoryInterface;
 use Magento\Framework\Api\SearchCriteriaBuilder;
 use Smile\RetailerPromotion\Api\Data\PromotionInterface;
+use Magento\Framework\Api\FilterBuilder;
+use Magento\Framework\Api\Search\FilterGroupBuilder;
 
 class StoreLocatorBlockSearchPlugin
 {
@@ -26,20 +28,33 @@ class StoreLocatorBlockSearchPlugin
      * @var SearchCriteriaBuilder
      */
     private $searchCriteriaBuilder;
+    /**
+     * @var FilterBuilder
+     */
+    private $filterBuilder;
+    /**
+     * @var FilterGroupBuilder
+     */
+    private $filterGroupBuilder;
 
     /**
      * StoreLocatorBlockSearchPlugin constructor.
      * @param PromotionRepositoryInterface $promotionRepository
      * @param SearchCriteriaBuilder $searchCriteriaBuilder
-     * @param array $data
+     * @param FilterBuilder $filterBuilder
+     * @param FilterGroupBuilder $filterGroupBuilder
      */
     public function __construct(
         PromotionRepositoryInterface $promotionRepository,
-        SearchCriteriaBuilder $searchCriteriaBuilder
+        SearchCriteriaBuilder $searchCriteriaBuilder,
+        FilterBuilder $filterBuilder,
+        FilterGroupBuilder $filterGroupBuilder
 
     ) {
         $this->promotionRepository = $promotionRepository;
         $this->searchCriteriaBuilder = $searchCriteriaBuilder;
+        $this->filterBuilder = $filterBuilder;
+        $this->filterGroupBuilder = $filterGroupBuilder;
     }
 
     /**
@@ -84,20 +99,64 @@ class StoreLocatorBlockSearchPlugin
      * @param int $retailerId
      * @return PromotionInterface[]
      * @throws \Magento\Framework\Exception\LocalizedException
-    */
+     */
     public function getPromoListByRetailerId($retailerId)
     {
         $now = new \DateTime();
         $currDateFormat = $now->format('Y-m-d H:i:s');
 
-        $this->searchCriteriaBuilder
-            ->addFilter(PromotionInterface::RETAILER_ID, [0, $retailerId], 'in')
-            ->addFilter(PromotionInterface::STATUS, [1, 2], 'in')
-            ->addFilter(PromotionInterface::IS_ACTIVE, true)
-            ->addFilter(PromotionInterface::CREATED_AT, $currDateFormat, 'lteq')
-            ->addFilter(PromotionInterface::END_AT, $currDateFormat, 'gteq');
-
-        $searchCriteria = $this->searchCriteriaBuilder->create();
+        $retailerIdFilter = $this->filterBuilder
+            ->setField(PromotionInterface::RETAILER_ID)
+            ->setConditionType('in')
+            ->setValue([0, $retailerId])
+            ->create();
+        $retailerStatus = $this->filterBuilder
+            ->setField(PromotionInterface::STATUS)
+            ->setConditionType('in')
+            ->setValue([1, 2])
+            ->create();
+        $retailerActive = $this->filterBuilder
+            ->setField(PromotionInterface::IS_ACTIVE)
+            ->setValue(true)
+            ->create();
+        $retailerEndDate = $this->filterBuilder
+            ->setField(PromotionInterface::END_AT)
+            ->setConditionType('gteq')
+            ->setValue($currDateFormat)
+            ->create();
+        $retailerStartDate = $this->filterBuilder
+            ->setField(PromotionInterface::CREATED_AT)
+            ->setConditionType('lteq')
+            ->setValue($currDateFormat)
+            ->create();
+        $retailerEmptyEnd = $this->filterBuilder
+            ->setField(PromotionInterface::END_AT)
+            ->setConditionType('null')
+            ->create();
+        $retailerEmptyStart = $this->filterBuilder
+            ->setField(PromotionInterface::CREATED_AT)
+            ->setConditionType('null')
+            ->create();
+        $filterGroup = [
+            $this->filterGroupBuilder
+                ->addFilter($retailerIdFilter)
+                ->create(),
+            $this->filterGroupBuilder
+                ->addFilter($retailerStatus)
+                ->create(),
+            $this->filterGroupBuilder
+                ->addFilter($retailerActive)
+                ->create(),
+            $this->filterGroupBuilder
+                ->addFilter($retailerEndDate)
+                ->addFilter($retailerStartDate)
+                ->addFilter($retailerEmptyStart)
+                ->addFilter($retailerEmptyEnd)
+                ->create()
+        ];
+        $searchCriteria = $this->searchCriteriaBuilder
+            ->setFilterGroups($filterGroup)
+            ->create();
         $searchResult = $this->promotionRepository->getList($searchCriteria);
 
         $items = $searchResult->getItems();
