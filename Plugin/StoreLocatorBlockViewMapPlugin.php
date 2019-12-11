@@ -18,7 +18,7 @@ use Smile\RetailerPromotion\Api\Data\PromotionInterface;
 use Magento\Framework\Api\FilterBuilder;
 use Magento\Framework\Api\Search\FilterGroupBuilder;
 
-class StoreLocatorBlockSearchPlugin
+class StoreLocatorBlockViewMapPlugin
 {
     /**
      * @var PromotionRepositoryInterface
@@ -58,28 +58,25 @@ class StoreLocatorBlockSearchPlugin
     }
 
     /**
-     * Add promotion in markers.
-     *
-     * @param \Smile\StoreLocator\Block\Search  $block  The block search
-     * @param $result                           $result List of markers
-     * @return  array
+     * * Add promotion in markers.
+     * @param \Smile\StoreLocator\Block\View\Map $block The block Map
+     * @param $result                            $result List of markers
+     * @return mixed
      * @throws \Magento\Framework\Exception\LocalizedException
      */
-    public function afterGetMarkers(\Smile\StoreLocator\Block\Search $block, $result)
+    public function afterGetMarkerData(\Smile\StoreLocator\Block\View\Map $block, $result)
     {
         if (!empty($result)) {
-            foreach ($result as $key => $marker) {
-                $promoList = $this->getPromoListByRetailerId($marker['id']);
-
+                $l = $result[0]['id'];
+                $promoList = $this->getPromoListByRetailerId($l);
                 $imageUrlPromotion = $block->getImageUrl().'/retailerpromotion/';
-
                 foreach ($promoList as $promo) {
 
                     $image = $promo->getMediaPath() ? $imageUrlPromotion.$promo->getMediaPath() : false;
                     $pdfFile = $promo->getPdf() ? $promo->getPdf() : false;
                     $promotionLink = $promo->getLink() ? $promo->getLink() : false;
 
-                    $result[$key]['promotion'][] =
+                    $result[0]['promotion'][] =
                         [
                             'media' => $image,
                             'title' => $promo->getTitle(),
@@ -88,9 +85,7 @@ class StoreLocatorBlockSearchPlugin
                             'link' => $promotionLink
                         ];
                 }
-            }
         }
-
         return $result;
     }
 
@@ -99,7 +94,8 @@ class StoreLocatorBlockSearchPlugin
      * @param int $retailerId
      * @return PromotionInterface[]
      * @throws \Magento\Framework\Exception\LocalizedException
-     */
+    */
+
     public function getPromoListByRetailerId($retailerId)
     {
         $now = new \DateTime();
