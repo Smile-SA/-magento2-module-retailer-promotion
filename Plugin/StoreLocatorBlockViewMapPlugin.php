@@ -99,7 +99,7 @@ class StoreLocatorBlockViewMapPlugin
     public function getPromoListByRetailerId($retailerId)
     {
         $now = new \DateTime();
-        $currDateFormat = $now->format('Y-m-d H:i:s');
+        $currDateFormat = $now->format('Y-m-d');
 
         $retailerIdFilter = $this->filterBuilder
             ->setField(PromotionInterface::RETAILER_ID)
@@ -118,6 +118,16 @@ class StoreLocatorBlockViewMapPlugin
         $retailerEndDate = $this->filterBuilder
             ->setField(PromotionInterface::END_AT)
             ->setConditionType('gteq')
+            ->setValue($currDateFormat)
+            ->create();
+        $retailerCurrentDate = $this->filterBuilder
+            ->setField(PromotionInterface::CREATED_AT)
+            ->setConditionType('eq')
+            ->setValue($currDateFormat)
+            ->create();
+        $retailerCurrentDateEnd = $this->filterBuilder
+            ->setField(PromotionInterface::END_AT)
+            ->setConditionType('eq')
             ->setValue($currDateFormat)
             ->create();
         $retailerStartDate = $this->filterBuilder
@@ -144,9 +154,13 @@ class StoreLocatorBlockViewMapPlugin
                 ->addFilter($retailerActive)
                 ->create(),
             $this->filterGroupBuilder
-                ->addFilter($retailerEndDate)
                 ->addFilter($retailerStartDate)
+                ->addFilter($retailerCurrentDate)
                 ->addFilter($retailerEmptyStart)
+                ->create(),
+            $this->filterGroupBuilder
+                ->addFilter($retailerEndDate)
+                ->addFilter($retailerCurrentDateEnd)
                 ->addFilter($retailerEmptyEnd)
                 ->create()
         ];
