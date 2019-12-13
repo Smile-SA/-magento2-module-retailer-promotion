@@ -1,7 +1,7 @@
-<!--ko if: $parents[1].selectedMarker._latestValue.promotion-->
+<!-- ko if: $parents[1].displayedMarkers._latestValue[0].promotion -->
 <div class="store-locator-promotions-container">
     <h4>Promotional сode</h4>
-    <div class="store-locator-promotions-wrapper clearfix" data-bind="{foreach: $parents[1].selectedMarker._latestValue.promotion, mageInit: {'promotionSlider':{}}}">
+    <div class="store-locator-promotions-wrapper clearfix" data-bind="{foreach: $parents[1].displayedMarkers._latestValue[0].promotion, mageInit: {'promotionSlider':{}}}">
         <div class="store-locator-promotions-item" data-bind="template: $parent.promotionItemTemplate"></div>
     </div>
 </div>

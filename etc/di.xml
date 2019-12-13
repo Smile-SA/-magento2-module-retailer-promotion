@@ -92,7 +92,7 @@
         </arguments>
     </type>
 
-    <type name="Smile\StoreLocator\Block\Search">
-        <plugin disabled="false" name="addRetailerPromotionData" type="Smile\RetailerPromotion\Plugin\StoreLocatorBlockSearchPlugin" sortOrder="10"/>
+    <type name="Smile\StoreLocator\Block\View\Map">
+        <plugin disabled="false" name="addRetailerPromotionData" type="Smile\RetailerPromotion\Plugin\StoreLocatorBlockViewMapPlugin" sortOrder="10"/>
     </type>
 </config>
